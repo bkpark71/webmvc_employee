@@ -1,5 +1,6 @@
 package com.example.webmvc_employee.entity;
 
+import com.example.webmvc_employee.dto.EmployeeCreateDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,4 +24,25 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name="dept_id")
     private Department department;
+
+    @OneToOne
+    @JoinColumn(name="family_id")
+    private EmployeeFamily employeeFamily;
+
+    public static Employee createEmployee(Department department, EmployeeCreateDto employeeCreateDto) {
+        Employee employee = new Employee();
+        employee.setEmpId(employeeCreateDto.getEmpId());
+        employee.setEmpName(employeeCreateDto.getEmpName());
+        employee.setEmpType(employeeCreateDto.getEmpType());
+        employee.setDepartment(department);
+
+        EmployeeFamily employeeFamily = new EmployeeFamily();
+        employeeFamily.setFamilyId(employeeCreateDto.getEmpId());
+        employeeFamily.setFamilyName(employeeCreateDto.getEmpName());
+        employeeFamily.setFamilyType(employeeCreateDto.getFamilyType());
+
+        employee.setEmployeeFamily(employeeFamily);
+
+        return employee;
+    }
 }

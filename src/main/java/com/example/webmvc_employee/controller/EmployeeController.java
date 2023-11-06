@@ -1,7 +1,9 @@
 package com.example.webmvc_employee.controller;
 
+import com.example.webmvc_employee.dto.EmployeeCreateDto;
 import com.example.webmvc_employee.dto.EmployeeUpdateDto;
 import com.example.webmvc_employee.entity.Employee;
+import com.example.webmvc_employee.entity.EmployeeFamily;
 import com.example.webmvc_employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +27,9 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public String addEmployee(@RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
+    public String addEmployee(@RequestBody EmployeeCreateDto employeeCreateDto) {
+        employeeService.addEmployee(employeeCreateDto);
+        //edeptId, employee, employeeFamily);
         return "등록완료";
     }
 
